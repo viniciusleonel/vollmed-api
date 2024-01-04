@@ -3,10 +3,7 @@ package med.voll.api.infra.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-<<<<<<< HEAD
 import com.auth0.jwt.exceptions.JWTVerificationException;
-=======
->>>>>>> origin/main
 import med.voll.api.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -34,7 +31,6 @@ public class TokenService {
         }
     }
 
-<<<<<<< HEAD
     public String getSubject(String tokenJWT){
         try {
             var algoritmo = Algorithm.HMAC256(secret);
@@ -48,9 +44,8 @@ public class TokenService {
         }
     }
 
-=======
->>>>>>> origin/main
     private Instant dataExpiracao() {
+
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
