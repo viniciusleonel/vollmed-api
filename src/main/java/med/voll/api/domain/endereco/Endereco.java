@@ -2,7 +2,6 @@ package med.voll.api.domain.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,25 +30,25 @@ public class Endereco {
     }
 
     public void atualizarInformacoes(DadosEndereco dados) {
-        if (dados.logradouro() != null){
+        if (dados.logradouro() != null) {
             this.logradouro = dados.logradouro();
         }
-        if (dados.bairro() != null){
+        if (dados.bairro() != null) {
             this.bairro = dados.bairro();
         }
-        if (dados.cep() != null){
+        if (dados.cep() != null) {
             this.cep = dados.cep();
         }
-        if (dados.uf() != null){
+        if (dados.uf() != null) {
             this.uf = dados.uf();
         }
-        if (dados.cidade() != null){
+        if (dados.cidade() != null) {
             this.cidade = dados.cidade();
         }
-        if (dados.numero() != null){
+        if (dados.numero() != null) {
             this.numero = dados.numero();
         }
-        if (dados.complemento() != null){
+        if (dados.complemento() != null) {
             this.complemento = dados.complemento();
         }
 
