@@ -1,9 +1,11 @@
-package med.voll.api.domain.medico;
+package med.voll.api.domain.paciente;
 
 import med.voll.api.domain.consulta.Consulta;
+import med.voll.api.domain.consulta.ConsultaRepository;
 import med.voll.api.domain.endereco.DadosEndereco;
-import med.voll.api.domain.paciente.DadosCadastroPaciente;
-import med.voll.api.domain.paciente.Paciente;
+import med.voll.api.domain.medico.DadosCadastroMedico;
+import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.medico.Medico;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,64 +24,54 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-class MedicoRepositoryTest {
+class PacienteRepositoryTest {
 
     @Autowired
-    private MedicoRepository medicoRepository;
+    private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private ConsultaRepository consultaRepository;
 
     @Autowired
     private TestEntityManager em;
 
     @Test
-    @DisplayName("Deveria devolver null quando único medico cadastrado não está disponível na data")
-    void escolherMedicoAleatorioLivreNaDataCenario1() {
-        // given ou arrange
+    @DisplayName("Paciente não pode ter duas consultas no mesmo dia")
+    void pacienteSemOutraConsultaNoDia() {
         var proximaSegundaAs10 = LocalDate.now()
                 .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
                 .atTime(10,0);
         var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.Cardiologia);
         var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345678910");
-        cadastrarConsulta(medico, paciente, proximaSegundaAs10);
+        var consulta = cadastrarEObterConsulta(medico, paciente, proximaSegundaAs10);
 
-        // when ou act
-        var medicoLivre = medicoRepository.escolherMedicoAleatorioLivreNaData(Especialidade.Cardiologia, proximaSegundaAs10);
+        var primeiroHorario = consulta.getData().withHour(7);
+        var ultimoHorario = consulta.getData().withHour(18);
 
-        // then ou assert
-        assertThat(medicoLivre).isNull();
+        var pacientePossuiOutraConsultaNoDia = consultaRepository.existsByPacienteIdAndDataBetween(
+                paciente.getId(),
+                primeiroHorario,
+                ultimoHorario);
+
+        assertThat(pacientePossuiOutraConsultaNoDia).isTrue();
     }
 
     @Test
-    @DisplayName("Deveria devolver médico quando ele estiver disponível na data")
-    void escolherMedicoAleatorioLivreNaDataCenario2() {
-        // given ou arrange
-        var proximaSegundaAs10 = LocalDate.now()
-                .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
-                .atTime(10,0);
-        var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.Cardiologia);
+    @DisplayName("Verifica se paciente está desativado")
+    void pacienteDesativado() {
+        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345678910");
 
-        // when ou act
-        var medicoLivre = medicoRepository.escolherMedicoAleatorioLivreNaData(Especialidade.Cardiologia, proximaSegundaAs10);
+        paciente.excluir();
 
-        // then ou assert
-        assertThat(medicoLivre).isEqualTo(medico);
+        assertThat(pacienteRepository.findAtivoById(paciente.getId())).isFalse();
     }
 
     @Test
-    @DisplayName("Verifica se médico está desativado")
-    void medicoDesativado() {
-        var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.Cardiologia);
+    @DisplayName("Verifica se paciente está ativo")
+    void pacienteAtivo() {
+        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345678910");
 
-        medico.excluir();
-
-        assertThat(medicoRepository.findAtivoById(medico.getId())).isFalse();
-    }
-
-    @Test
-    @DisplayName("Verifica se médico está ativo")
-    void medicoAtivo() {
-        var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.Cardiologia);
-
-        assertThat(medicoRepository.findAtivoById(medico.getId())).isTrue();
+        assertThat(pacienteRepository.findAtivoById(paciente.getId())).isTrue();
     }
 
     private Medico cadastrarMedico (String nome, String email, String crm, Especialidade especialidade) {
