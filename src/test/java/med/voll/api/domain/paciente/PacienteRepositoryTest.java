@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class PacienteRepositoryTest {
 
     @Autowired
@@ -42,7 +42,7 @@ class PacienteRepositoryTest {
                 .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
                 .atTime(10,0);
         var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.Cardiologia);
-        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345678910");
+        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12245678910");
         var consulta = cadastrarEObterConsulta(medico, paciente, proximaSegundaAs10);
 
         var primeiroHorario = consulta.getData().withHour(7);
@@ -59,7 +59,7 @@ class PacienteRepositoryTest {
     @Test
     @DisplayName("Verifica se paciente está desativado")
     void pacienteDesativado() {
-        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345678910");
+        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "14345678910");
 
         paciente.excluir();
 
@@ -69,7 +69,7 @@ class PacienteRepositoryTest {
     @Test
     @DisplayName("Verifica se paciente está ativo")
     void pacienteAtivo() {
-        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345678910");
+        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "11345678910");
 
         assertThat(pacienteRepository.findAtivoById(paciente.getId())).isTrue();
     }

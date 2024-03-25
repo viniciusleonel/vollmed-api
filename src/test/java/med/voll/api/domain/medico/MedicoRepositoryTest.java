@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class MedicoRepositoryTest {
 
     @Autowired
@@ -38,7 +38,7 @@ class MedicoRepositoryTest {
                 .with(TemporalAdjusters.next(DayOfWeek.MONDAY))
                 .atTime(10,0);
         var medico = cadastrarMedico("Medico", "medico@voll.med", "123456", Especialidade.Cardiologia);
-        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345678910");
+        var paciente = cadastrarPaciente("Paciente", "paciente@gmail.com", "12345668910");
         cadastrarConsulta(medico, paciente, proximaSegundaAs10);
 
         // when ou act
