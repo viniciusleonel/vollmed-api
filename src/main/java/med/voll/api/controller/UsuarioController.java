@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("usuarios")
-@CrossOrigin(origins = {"http://127.0.0.1:5500/", "http://localhost:3000", "http://18.231.9.214:8080"})
+@CrossOrigin(origins = {"http://127.0.0.1:5500/", "http://localhost:3000", "https://viniciusleonel.dev.br/", "http://52.67.21.32:8080"})
 public class UsuarioController {
 
     @Autowired

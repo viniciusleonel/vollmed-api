@@ -10,8 +10,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestControllerAdvice
 public class TratadorDeErros {
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<String> tratarErro403(SQLIntegrityConstraintViolationException ex){
+        String mensagemPersonalizada = "Ocorreu um erro ao cadastrar o usuário: O login fornecido já está em uso.";
+        return ResponseEntity
+                .badRequest()
+                .body(mensagemPersonalizada);
+    }
+
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity tratarErro404(){
