@@ -3,6 +3,7 @@ package med.voll.api.controller;
 import med.voll.api.domain.consulta.AgendaDeConsultas;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 import med.voll.api.domain.consulta.DadosDetalhamentoConsulta;
+import med.voll.api.domain.consulta.ConsultaStatus;
 import med.voll.api.domain.medico.Especialidade;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,7 +61,7 @@ class ConsultaControllerTest {
         var data = LocalDateTime.now().plusHours(1);
         var especialidade = Especialidade.Odontologia;
 
-        var dadosDetalhamento =  new DadosDetalhamentoConsulta(null, 7l, 1l, data);
+        var dadosDetalhamento =  new DadosDetalhamentoConsulta(null, "" , "", data, especialidade, ConsultaStatus.CONSULTA_ATIVA);
 
         when(agendaDeConsultas.agendar(any())).thenReturn(dadosDetalhamento);
 
@@ -68,7 +69,7 @@ class ConsultaControllerTest {
                 .perform(post("/consultas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(dadosAgendamentoConsultaJson.write(
-                                new DadosAgendamentoConsulta(7l, 1l, data, especialidade)
+                                new DadosAgendamentoConsulta(7l, 1l, data, especialidade, ConsultaStatus.CONSULTA_ATIVA)
                         ).getJson())
                 )
                 .andReturn().getResponse();
