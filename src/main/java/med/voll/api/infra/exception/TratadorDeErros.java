@@ -1,34 +1,32 @@
 package med.voll.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import med.voll.api.domain.ValidacaoException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class TratadorDeErros {
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public ResponseEntity<String> tratarErro403(SQLIntegrityConstraintViolationException ex){
-        String mensagemPersonalizada = "Ocorreu um erro ao cadastrar o usuário: O login fornecido já está em uso.";
-        return ResponseEntity
-                .badRequest()
-                .body(mensagemPersonalizada);
+    public ResponseEntity<String> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex) {
+        String mensagemErro = "Erro de violação de integridade de dados: " + ex.getMessage();
+        return ResponseEntity.badRequest().body(mensagemErro);
     }
-
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity tratarErro404(){
-        return ResponseEntity.notFound().build();
+        var err = new ValidacaoException("Os dados não foram encontrados!" );
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(err.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -43,7 +41,6 @@ public class TratadorDeErros {
     }
 
     private record DadosErroValidacao(String campo, String mensagem) {
-
         public DadosErroValidacao(FieldError erro){
             this(erro.getField(), erro.getDefaultMessage());
         }

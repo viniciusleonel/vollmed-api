@@ -6,6 +6,7 @@ import med.voll.api.domain.medico.DadosListagemMedico;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.medico.*;
+import med.voll.api.domain.paciente.DadosAtualizacaoPaciente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,10 +41,23 @@ public class MedicoController {
         return ResponseEntity.ok(page);
     }
 
+    private boolean dadosContemCamposInvalidos(DadosAtualizacaoMedico dados) {
+        if (dados.nome() != null || dados.telefone() != null || dados.endereco() != null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
         var medico = repository.getReferenceById(dados.id());
+
+        if (dadosContemCamposInvalidos(dados)) {
+            return ResponseEntity.badRequest().body("Os campos informados para atualização não são permitidos.");
+        }
+
         medico.atualizarInformacoes(dados);
 
         return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));

@@ -17,6 +17,7 @@ public record DadosCadastroMedico(
         String email,
 
         @NotBlank (message = "Insira seu telefone!")
+        @Pattern(regexp = "\\(\\d{2}\\) \\d{7}-\\d{4}", message = "Insira um número de telefone válido no formato (xx) xxxxxx-xxxx!")
         String telefone,
 
         @NotBlank (message = "Insira seu CRM!")

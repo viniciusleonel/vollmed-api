@@ -40,10 +40,23 @@ public class PacienteController {
         return ResponseEntity.ok(page);
     }
 
+    private boolean dadosContemCamposInvalidos(DadosAtualizacaoPaciente dados) {
+        if (dados.nome() != null || dados.telefone() != null || dados.endereco() != null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados){
         var paciente = repository.getReferenceById(dados.id());
+
+        if (dadosContemCamposInvalidos(dados)) {
+            return ResponseEntity.badRequest().body("Os campos informados para atualização não são permitidos.");
+        }
+
         paciente.atualizarInformacoes(dados);
 
         return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
