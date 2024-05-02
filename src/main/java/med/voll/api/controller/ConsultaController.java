@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("consultas")
 @SecurityRequirement(name = "bearer-key")
+@CrossOrigin(origins = {"*"})
 public class ConsultaController {
 
     @Autowired
