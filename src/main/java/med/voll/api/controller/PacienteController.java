@@ -3,15 +3,13 @@ package med.voll.api.controller;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.DadosListagemPaciente;
-import med.voll.api.domain.paciente.Paciente;
-import med.voll.api.domain.paciente.PacienteRepository;
 import med.voll.api.domain.paciente.*;
+import med.voll.api.services.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,61 +20,36 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PacienteController {
 
     @Autowired
-    private PacienteRepository repository;
+    private PacienteService pacienteService;
 
     @PostMapping
-    @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
-        var paciente = new Paciente(dados);
-        repository.save(paciente);
-        var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
+        return pacienteService.cadastrarPaciente(dados, uriBuilder);
     }
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemPaciente>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
-        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
-
+        Page<DadosListagemPaciente> page = pacienteService.listarPacientes(paginacao);
         return ResponseEntity.ok(page);
     }
 
-    private boolean dadosContemCamposInvalidos(DadosAtualizacaoPaciente dados) {
-        if (dados.nome() != null || dados.telefone() != null || dados.endereco() != null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     @PutMapping
-    @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados){
-        var paciente = repository.getReferenceById(dados.id());
 
-        if (dadosContemCamposInvalidos(dados)) {
-            return ResponseEntity.badRequest().body("Os campos informados para atualização não são permitidos.");
-        }
-
-        paciente.atualizarInformacoes(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+        return pacienteService.atualizarPaciente(dados);
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     public ResponseEntity excluir(@PathVariable Long id){
-        var paciente = repository.getReferenceById(id);
-        paciente.excluir();
 
-        return ResponseEntity.noContent().build();
+        return pacienteService.excluirPaciente(id);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id){
-        var paciente = repository.getReferenceById(id);
 
-        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+        return pacienteService.detalharPaciente(id);
     }
 
 }

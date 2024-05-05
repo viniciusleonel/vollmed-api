@@ -11,7 +11,7 @@ public record DadosAtualizacaoMedico(
         Long id,
 
         String nome,
-        @Pattern(regexp = "\\(\\d{2}\\) \\d{7}-\\d{4}", message = "Insira um número de telefone válido no formato (xx) xxxxxx-xxxx!")
+        @Pattern(regexp = "\\(\\d{2}\\) \\d{5}-\\d{4}", message = "Insira um número de telefone válido no formato (xx) xxxxx-xxxx!")
         String telefone,
         @Valid
         DadosEndereco endereco) {
