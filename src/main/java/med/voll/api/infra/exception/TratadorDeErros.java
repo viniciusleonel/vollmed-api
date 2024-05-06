@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import med.voll.api.domain.ValidacaoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,10 +14,22 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RestControllerAdvice
 public class TratadorDeErros {
 
+    public String removerAspas(String texto) {
+        // Substitua todas as aspas simples e duplas na string por uma string vazia
+        return texto.replaceAll("'", "").replaceAll("\"", "");
+    }
+
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public ResponseEntity<String> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex) {
-        String mensagemErro = "Erro de violação de integridade de dados: " + ex.getMessage();
-        return ResponseEntity.badRequest().body(mensagemErro);
+    public ResponseEntity<DadosErroValidacao> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException ex) {
+        String mensagemErro = "Erro de violação de integridade de dados: " ;
+        String mensagemCompleta = ex.getMessage();
+        int indiceKeyCampo = mensagemCompleta.indexOf("medicos");
+        String campo = removerAspas(mensagemCompleta.substring(indiceKeyCampo + 8));
+        int indiceKeyValor = mensagemCompleta.indexOf("entry");
+        int indiceFimValor = mensagemCompleta.indexOf("for key");
+        String valor = removerAspas(mensagemCompleta.substring(indiceKeyValor + 7, indiceFimValor).trim());
+
+        return ResponseEntity.badRequest().body(new DadosErroValidacao(campo,valor, mensagemErro + mensagemCompleta));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -40,9 +51,9 @@ public class TratadorDeErros {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
-    private record DadosErroValidacao(String campo, String mensagem) {
+    private record DadosErroValidacao(String campo,String valor, String mensagem) {
         public DadosErroValidacao(FieldError erro){
-            this(erro.getField(), erro.getDefaultMessage());
+            this(erro.getField(),erro.getField() ,erro.getDefaultMessage());
         }
     }
 }

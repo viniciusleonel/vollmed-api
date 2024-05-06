@@ -6,6 +6,7 @@ import med.voll.api.domain.consulta.*;
 import med.voll.api.domain.paciente.DadosDetalhamentoPaciente;
 import med.voll.api.domain.paciente.DadosListagemPaciente;
 import med.voll.api.domain.paciente.PacienteRepository;
+import med.voll.api.services.ConsultaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,31 +27,28 @@ public class ConsultaController {
     @Autowired
     private ConsultaRepository repository;
 
+    @Autowired
+    private ConsultaService consultaService;
+
     @PostMapping
-    @Transactional
     public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsulta dados){
-        var dto = agenda.agendar(dados);
-        return ResponseEntity.ok(dto);
+        return consultaService.agendarConsulta(dados);
     }
 
     @DeleteMapping
-    @Transactional
     public ResponseEntity cancelar(@RequestBody @Valid DadosCancelamentoConsulta dados) {
-        agenda.cancelar(dados);
-        return ResponseEntity.noContent().build();
+        return consultaService.cancelarConsulta(dados);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id){
-        var consulta = repository.getReferenceById(id);
 
-        return ResponseEntity.ok(new DadosDetalhamentoConsulta(consulta));
+        return consultaService.detalharConsulta(id);
     }
 
     @GetMapping
     public ResponseEntity<Page<DadosDetalhamentoConsulta>> listar(@PageableDefault(size = 10, sort = {"id"}) Pageable paginacao){
-        var page = repository.findAll(paginacao).map(DadosDetalhamentoConsulta::new);
-
+        Page<DadosDetalhamentoConsulta> page = consultaService.listarConsultas(paginacao);
         return ResponseEntity.ok(page);
     }
 }
