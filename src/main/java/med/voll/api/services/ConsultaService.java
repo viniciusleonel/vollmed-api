@@ -1,6 +1,8 @@
 package med.voll.api.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,9 +36,15 @@ public class ConsultaService {
     }
 
     public ResponseEntity detalharConsulta(@PathVariable Long id){
-        var consulta = consultaRepository.getReferenceById(id);
 
-        return ResponseEntity.ok(new DadosDetalhamentoConsulta(consulta));
+        try {
+            var consulta = consultaRepository.getReferenceById(id);
+
+            return ResponseEntity.ok(new DadosDetalhamentoConsulta(consulta));
+        } catch (EntityNotFoundException erro) {
+            throw new EntityNotFoundException("Consulta não encontrada!");
+        }
+
     }
 
     public Page<DadosDetalhamentoConsulta> listarConsultas(@PageableDefault(size = 10, sort = {"id"}) Pageable paginacao){

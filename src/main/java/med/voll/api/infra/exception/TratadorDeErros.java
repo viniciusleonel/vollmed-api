@@ -33,11 +33,10 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity tratarErro404(){
-        var err = new ValidacaoException("Os dados não foram encontrados!" );
+    public ResponseEntity tratarErro404(EntityNotFoundException ex){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(err.getMessage());
+                .body(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
