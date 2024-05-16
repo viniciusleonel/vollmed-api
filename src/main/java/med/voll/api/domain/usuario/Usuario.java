@@ -27,6 +27,9 @@ public class Usuario implements UserDetails {
     private String login;
     private String senha;
 
+    @Enumerated(EnumType.STRING)
+    private UsuarioRole role;
+
     public Usuario(DadosCadastroUsuario dados, PasswordEncoder passwordEncoder) {
         this.login = dados.login();
         this.login = dados.login();
