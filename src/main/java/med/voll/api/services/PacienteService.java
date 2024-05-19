@@ -46,6 +46,8 @@ public class PacienteService {
     }
     @Transactional
     public ResponseEntity excluirPaciente(@PathVariable Long id){
+
+
         var paciente = pacienteRepository.getReferenceById(id);
         paciente.excluir();
 

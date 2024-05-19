@@ -49,9 +49,13 @@ public class MedicoService {
     @Transactional
     public ResponseEntity excluirMedico(@PathVariable Long id){
         var medico = medicoRepository.getReferenceById(id);
-        medico.excluir();
+        if (medico.getAtivo()) {
+            medico.excluir();
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.badRequest().body("Médico não encontrado!");
+        }
 
-        return ResponseEntity.noContent().build();
     }
 
     private boolean dadosContemCamposInvalidos(DadosAtualizacaoMedico dados) {
