@@ -22,6 +22,10 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    public boolean usuarioExiste(String email) {
+        return usuarioRepository.existsByLogin(email);
+    }
+
     @Transactional
     public ResponseEntity<?> cadastrarNovoUsuario(DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
         Usuario usuario = new Usuario(dados, passwordEncoder);

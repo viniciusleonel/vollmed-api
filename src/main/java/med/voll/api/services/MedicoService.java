@@ -21,6 +21,10 @@ public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    public boolean medicoExiste(String email) {
+        return medicoRepository.existsByEmail(email);
+    }
+
     @Transactional
     public ResponseEntity<?> cadastrarNovoMedico(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder){
         var medico = new Medico(dados);

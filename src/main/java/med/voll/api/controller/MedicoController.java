@@ -25,6 +25,9 @@ public class MedicoController {
     @PostMapping
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder){
 
+        if (medicoService.medicoExiste(dados.email())) {
+            return ResponseEntity.badRequest().body("Médico já cadastrado!");
+        }
         return medicoService.cadastrarNovoMedico(dados, uriBuilder);
     }
 

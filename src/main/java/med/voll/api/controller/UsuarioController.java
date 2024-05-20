@@ -19,6 +19,10 @@ public class UsuarioController {
 
     @PostMapping()
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
+
+        if (usuarioService.usuarioExiste(dados.login())) {
+            return ResponseEntity.badRequest().body("Usuário já cadastrado!");
+        }
         return usuarioService.cadastrarNovoUsuario(dados, uriBuilder);
     }
 }

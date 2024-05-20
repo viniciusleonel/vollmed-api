@@ -25,6 +25,9 @@ public class PacienteController {
     @PostMapping
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
 
+        if(pacienteService.PacienteExiste(dados.email())) {
+            return ResponseEntity.badRequest().body("Paciente já cadastrado!");
+        }
         return pacienteService.cadastrarPaciente(dados, uriBuilder);
     }
 

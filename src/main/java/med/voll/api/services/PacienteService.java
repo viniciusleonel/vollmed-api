@@ -19,6 +19,10 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    public boolean PacienteExiste(String email) {
+        return pacienteRepository.existsByEmail(email);
+    }
+
     @Transactional
     public ResponseEntity cadastrarPaciente(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
         var paciente = new Paciente(dados);
