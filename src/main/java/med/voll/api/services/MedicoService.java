@@ -71,7 +71,7 @@ public class MedicoService {
     }
 
     @Transactional
-    public ResponseEntity atualizarMedico(@RequestBody @Valid DadosAtualizacaoMedico dados){
+    public ResponseEntity<?> atualizarMedico(@RequestBody @Valid DadosAtualizacaoMedico dados){
         var medico = medicoRepository.getReferenceById(dados.id());
 
         if (dadosContemCamposInvalidos(dados)) {
