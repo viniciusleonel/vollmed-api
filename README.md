@@ -6,10 +6,9 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
 
 - **Cadastro de Usuários**: A API oferece a funcionalidade de cadastro de novos usuários, que será o responsável por gerenciar a clínica. O endpoint `/usuarios` permite o registro de novos usuários.
 - **Autenticação JWT**: A API utiliza JSON Web Tokens (JWT) para autenticação de usuários. O endpoint `/login` é público e permite que os usuários obtenham um token JWT válido para as próximas requisições.
-- **Cadastro de Médicos**: Os médicos podem ser cadastrados na API através do endpoint `/medicos`.
-- **Cadastro de Pacientes**: Os pacientes podem ser cadastrados na API através do endpoint `/pacientes`.
-- **Agendamento de Consultas**: Os usuários podem agendar consultas utilizando o endpoint `/consultas`.
-- **Listagem de Consultas**: A API fornece endpoints para listar consultas de acordo com diferentes critérios, como por médico, paciente ou data.
+- **Gerenciamento de Médicos**: Os médicos podem ser gerenciados na API através do endpoint `/medicos`.
+- **Gerenciamento de Pacientes**: Os pacientes podem ser gerenciados na API através do endpoint `/pacientes`.
+- **Gerenciamento de Consultas**: Os usuários podem gerenciar consultas utilizando o endpoint `/consultas`.
 
 ## Endpoints Públicos
 
