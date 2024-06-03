@@ -32,7 +32,6 @@ public class Usuario implements UserDetails {
 
     public Usuario(DadosCadastroUsuario dados, PasswordEncoder passwordEncoder) {
         this.login = dados.login();
-        this.login = dados.login();
         criptografarSenha(dados.senha(), passwordEncoder);
     }
 

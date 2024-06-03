@@ -33,7 +33,20 @@ public class Consulta {
     @Enumerated(EnumType.STRING)
     private ConsultaStatus consultaStatus;
 
-    public void cancelar(ConsultaStatus motivo) {
+    public void atualizarStatusConsulta(ConsultaStatus motivo) {
+
         this.consultaStatus = motivo;
     }
+
+    public void atualizarInformacoes(DadosAtualizacaoConsulta dados) {
+
+        if (dados.data() != null) {
+            this.data = dados.data();
+        }
+        if (consultaStatus != null) {
+            this.consultaStatus = dados.status();
+        }
+
+    }
+
 }

@@ -1,18 +1,18 @@
 package med.voll.api.domain.paciente;
 
 import med.voll.api.domain.consulta.Consulta;
-import med.voll.api.domain.consulta.ConsultaRepository;
+import med.voll.api.repository.ConsultaRepository;
 import med.voll.api.domain.endereco.DadosEndereco;
 import med.voll.api.domain.medico.DadosCadastroMedico;
 import med.voll.api.domain.medico.Especialidade;
 import med.voll.api.domain.medico.Medico;
+import med.voll.api.repository.PacienteRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

@@ -1,16 +1,15 @@
 package med.voll.api.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.*;
+import med.voll.api.infra.exception.ErrorDTO;
+import med.voll.api.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
@@ -19,12 +18,22 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-    public boolean PacienteExiste(String email) {
+    public boolean pacienteExisteByEmail(String email) {
+
         return pacienteRepository.existsByEmail(email);
     }
 
+    public boolean pacienteExisteById(Long id) {
+
+        return pacienteRepository.existsById(id);
+    }
+
+    public boolean pacienteExisteByCpf(String cpf) {
+        return pacienteRepository.existsByCpf(cpf);
+    }
+
     @Transactional
-    public ResponseEntity cadastrarPaciente(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Object> cadastrarPaciente(DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
         var paciente = new Paciente(dados);
         pacienteRepository.save(paciente);
         var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
@@ -37,7 +46,7 @@ public class PacienteService {
 
     }
 
-    public ResponseEntity detalharPaciente(@PathVariable Long id){
+    public ResponseEntity<Object> detalharPaciente(Long id){
 
         try {
             var paciente = pacienteRepository.getReferenceById(id);
@@ -49,34 +58,23 @@ public class PacienteService {
 
     }
     @Transactional
-    public ResponseEntity excluirPaciente(@PathVariable Long id){
-
-
+    public ResponseEntity<Object> excluirPaciente(Long id){
         var paciente = pacienteRepository.getReferenceById(id);
-        paciente.excluir();
-
-        return ResponseEntity.noContent().build();
+        if(paciente.getAtivo()) {
+            paciente.excluir();
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Paciente não encontrado!"));
+        }
     }
 
     @Transactional
-    public ResponseEntity atualizarPaciente(@RequestBody @Valid DadosAtualizacaoPaciente dados){
-        var paciente = pacienteRepository.getReferenceById(dados.id());
-
-        if (dadosContemCamposInvalidos(dados)) {
-            return ResponseEntity.badRequest().body("Os campos informados para atualização não são permitidos.");
-        }
+    public ResponseEntity<Object> atualizarPaciente(DadosAtualizacaoPaciente dados, Long id){
+        var paciente = pacienteRepository.getReferenceById(id);
 
         paciente.atualizarInformacoes(dados);
 
         return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
-    }
-
-    private boolean dadosContemCamposInvalidos(DadosAtualizacaoPaciente dados) {
-        if (dados.nome() != null || dados.telefone() != null || dados.endereco() != null) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
 }

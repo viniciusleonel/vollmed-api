@@ -23,7 +23,7 @@ public record DadosCadastroMedico(
         String telefone,
 
         @NotBlank (message = "Insira seu CRM!")
-        @Pattern(regexp = "\\d{4,6}", message = "Insira um CRM válido!")
+        @Pattern(regexp = "\\d{4,6}", message = "Insira um CRM válido! conter de 4 a 6 caracteres!")
         String crm,
 
         @NotNull (message = "Selecione uma especialidade!")

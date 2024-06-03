@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.medico.DadosListagemMedico;
 import med.voll.api.domain.medico.*;
+import med.voll.api.infra.exception.ErrorDTO;
 import med.voll.api.services.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,10 +24,10 @@ public class MedicoController {
     private MedicoService medicoService;
 
     @PostMapping
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<Object> cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder){
 
-        if (medicoService.medicoExiste(dados.email())) {
-            return ResponseEntity.badRequest().body("Médico já cadastrado!");
+        if (medicoService.medicoExisteByEmail(dados.email()) || medicoService.medicoExisteByCrm(dados.crm())) {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Médico já cadastrado!"));
         }
         return medicoService.cadastrarNovoMedico(dados, uriBuilder);
     }
@@ -37,20 +38,28 @@ public class MedicoController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping
-    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados){
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados, @PathVariable Long id){
 
-        return medicoService.atualizarMedico(dados);
+        if (medicoService.medicoExisteById(id)) {
+            return medicoService.atualizarMedico(dados, id);
+        } else {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Médico não encontrado!"));
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity excluir(@PathVariable Long id){
+    public ResponseEntity<Object> excluir(@PathVariable Long id){
 
-        return medicoService.excluirMedico(id);
+        if (medicoService.medicoExisteById(id)) {
+            return medicoService.excluirMedico(id);
+        } else {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Médico não encontrado!"));
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity detalhar(@PathVariable Long id){
+    public ResponseEntity<Object> detalhar(@PathVariable Long id){
 
         return medicoService.detalharMedico(id);
     }

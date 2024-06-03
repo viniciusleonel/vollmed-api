@@ -1,6 +1,6 @@
-package med.voll.api.domain.usuario;
+package med.voll.api.infra.security;
 
-import lombok.AllArgsConstructor;
+import med.voll.api.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

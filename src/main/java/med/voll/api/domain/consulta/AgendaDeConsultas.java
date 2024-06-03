@@ -1,10 +1,11 @@
 package med.voll.api.domain.consulta;
 
-import med.voll.api.domain.ValidacaoException;
+import med.voll.api.infra.exception.ValidacaoException;
 import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import med.voll.api.domain.medico.Medico;
-import med.voll.api.domain.medico.MedicoRepository;
-import med.voll.api.domain.paciente.PacienteRepository;
+import med.voll.api.repository.ConsultaRepository;
+import med.voll.api.repository.MedicoRepository;
+import med.voll.api.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +69,7 @@ public class AgendaDeConsultas {
         }
 
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
-        consulta.cancelar(dados.motivo());
+        consulta.atualizarStatusConsulta(dados.motivo());
 
         return consulta;
     }

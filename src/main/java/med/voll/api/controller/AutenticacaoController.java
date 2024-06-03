@@ -1,7 +1,8 @@
 package med.voll.api.controller;
 
 import jakarta.validation.Valid;
-import med.voll.api.domain.usuario.AutenticacaoService;
+import med.voll.api.infra.exception.ErrorDTO;
+import med.voll.api.infra.security.AutenticacaoService;
 import med.voll.api.domain.usuario.DadosAutenticacao;
 import med.voll.api.domain.usuario.Usuario;
 import med.voll.api.infra.security.DadosTokenJWT;
@@ -32,13 +33,13 @@ public class AutenticacaoController {
 
         // Verificar se o login não é nulo e tem formato de email
         if (dados.login() == null || !dados.login().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
-            return ResponseEntity.badRequest().body("Login inválido");
+            return ResponseEntity.badRequest().body(new ErrorDTO("Login com formato tipo email inválido"));
         }
 
         // Verificar se o usuário existe no banco de dados
         UserDetails usuario = autenticacaoService.loadUserByUsername(dados.login());
         if (usuario == null) {
-            return ResponseEntity.badRequest().body("Usuário não encontrado");
+            return ResponseEntity.badRequest().body(new ErrorDTO("Usuário não encontrado"));
         }
 
         try {

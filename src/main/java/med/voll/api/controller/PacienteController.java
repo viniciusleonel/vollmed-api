@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.paciente.DadosListagemPaciente;
 import med.voll.api.domain.paciente.*;
+import med.voll.api.infra.exception.ErrorDTO;
 import med.voll.api.services.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,10 +24,10 @@ public class PacienteController {
     private PacienteService pacienteService;
 
     @PostMapping
-    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<Object> cadastrar(@RequestBody @Valid DadosCadastroPaciente dados, UriComponentsBuilder uriBuilder) {
 
-        if(pacienteService.PacienteExiste(dados.email())) {
-            return ResponseEntity.badRequest().body("Paciente já cadastrado!");
+        if(pacienteService.pacienteExisteByEmail(dados.email()) || pacienteService.pacienteExisteByCpf(dados.cpf())) {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Paciente já cadastrado!"));
         }
         return pacienteService.cadastrarPaciente(dados, uriBuilder);
     }
@@ -37,20 +38,28 @@ public class PacienteController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping
-    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados){
+    @PutMapping("/{id}")
+    public ResponseEntity<Object>atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados, @PathVariable Long id){
 
-        return pacienteService.atualizarPaciente(dados);
+        if (pacienteService.pacienteExisteById(id)){
+            return pacienteService.atualizarPaciente(dados, id);
+        } else {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Paciente não encontrado!"));
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity excluir(@PathVariable Long id){
+    public ResponseEntity<Object> excluir(@PathVariable Long id){
 
-        return pacienteService.excluirPaciente(id);
+        if (pacienteService.pacienteExisteById(id)) {
+            return pacienteService.excluirPaciente(id);
+        } else {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Paciente não encontrado!"));
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity detalhar(@PathVariable Long id){
+    public ResponseEntity<Object> detalhar(@PathVariable Long id){
 
         return pacienteService.detalharPaciente(id);
     }

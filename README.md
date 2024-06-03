@@ -48,9 +48,9 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
 - **GET /pacientes/{id}**: Retorna os detalhes de um paciente específico.
 - **DELETE /pacientes/{id}**: Remove um paciente existente.
 - **POST /pacientes**: Cadastra um novo paciente.
-- **PUT /pacientes**: Atualiza os dados de um paciente existente.
+- **PUT /pacientes/{id}**: Atualiza os dados de um paciente existente.
 
-  ### Cadastro de Paciente POST
+### Cadastro de Paciente POST
 - **nome**<span style="color: red;">*</span>: <span style="color: green;">string</span>
 - **email**<span style="color: red;">*</span>: <span style="color: green;">string</span>
 - **telefone**<span style="color: red;">*</span>: <span style="color: green;">string</span>  
@@ -59,13 +59,13 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
   <span style="color: blue;">pattern: ^\d{11}$</span>
 - **endereco**<span style="color: red;">*</span>: DadosEndereco<span style="color: green;">{...}</span>
 
-  ### Atualização de Paciente PUT
-- **id**<span style="color: red;">*</span>: <span style="color: green;">integer</span>
+### Atualização de Paciente PUT
 - **nome**: <span style="color: green;">string</span>
 - **telefone**: <span style="color: green;">string</span>  
   <span style="color: blue;">pattern: \(\d{2}\) \d{5}-\d{4}</span> (xx) xxxxx-xxxx
 - **endereco**: DadosEndereco<span style="color: green;">{...}</span>
 
+Qualquer outro campo enviado retornará um erro.
 
 ### Médicos
 
@@ -73,9 +73,9 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
 - **GET /medicos/{id}**: Retorna os detalhes de um médico específico.
 - **DELETE /medicos/{id}**: Remove um médico existente.
 - **POST /medicos**: Cadastra um novo médico.
-- **PUT /medicos**: Atualiza os dados de um médico existente.
+- **PUT /medicos/{id}**: Atualiza os dados de um médico existente.
 
-  ### Cadastro de Médico POST
+### Cadastro de Médico POST
 - **nome**<span style="color: red;">*</span>: <span style="color: green;">string</span>
 - **email**<span style="color: red;">*</span>: <span style="color: green;">string</span>
 - **telefone**<span style="color: red;">*</span>: <span style="color: green;">string</span>  
@@ -86,33 +86,41 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
   <span style="color: blue;">Enum: [ Ortopedia, Cardiologia, Ginecologia, Dermatologia, Odontologia ]</span>
 - **endereco**<span style="color: red;">*</span>: DadosEndereco<span style="color: green;">{...}</span>
 
-  ### Atualização de Médico PUT
-- **id**<span style="color: red;">*</span>: <span style="color: green;">integer</span>
+### Atualização de Médico PUT
 - **nome**: <span style="color: green;">string</span>
 - **telefone**: <span style="color: green;">string</span>  
   <span style="color: blue;">pattern: \(\d{2}\) \d{5}-\d{4}</span>
 - **endereco**: DadosEndereco<span style="color: green;">{...}</span>
 
+Qualquer outro campo enviado retornará um erro.
+
 
 ### Consultas
 
+- **POST /consultas**: Agenda uma nova consulta.
 - **GET /consultas**: Lista todas as consultas agendadas com paginação.
 - **GET /consultas/{id}**: Retorna os detalhes de uma consulta específica.
+- **PUT /consultas/{id}**: Atualiza a data ou o status da consulta.
 - **DELETE /consultas**: Remove uma consulta agendada.
-- **POST /consultas**: Agenda uma nova consulta.
 
 [//]: # (- **PUT /consultas**: Atualiza os dados de uma consulta agendada.)
 
-  ### Agendamento de Consulta POST
+### Agendamento de Consulta POST
 - **idMedico**: <span style="color: green;">integer</span>
 - **idPaciente**<span style="color: red;">*</span>: <span style="color: green;">integer</span>
 - **data**<span style="color: red;">*</span>: <span style="color: green;">string($date-time)</span>
-- **especialidade**: <span style="color: green;">string</span>  
+- **especialidade**<span style="color: red;">*</span>: <span style="color: green;">string</span>  
   <span style="color: blue;">Enum: [ Ortopedia, Cardiologia, Ginecologia, Dermatologia, Odontologia ]</span>
-- **consultaAtiva**: <span style="color: green;">string</span>  
-  <span style="color: blue;">Enum: [ PACIENTE_DESISTIU, MEDICO_CANCELOU, CONSULTA_ATIVA, OUTROS ]</span>
 
-  ### Cancelar Consulta DELETE
+Caso o ID do médico não seja informado, será selecionado um médico que estiver livre aleatóriamente.
+
+### Atualizar Consulta PUT
+- **data**: <span style="color: green;">string($date-time)</span>
+- **status**: <span style="color: blue;">Enum: [ PACIENTE_DESISTIU, MEDICO_CANCELOU, CONSULTA_ATIVA, CONSULTA_EFETUADA, OUTROS ]</span>
+
+
+
+### Cancelar Consulta DELETE
 - **idConsulta**<span style="color: red;">*</span>: <span style="color: green;">integer</span>
 - **motivo**<span style="color: red;">*</span>: <span style="color: green;">string</span>  
   <span style="color: blue;">Enum: [ PACIENTE_DESISTIU, MEDICO_CANCELOU, CONSULTA_ATIVA, OUTROS ]</span>

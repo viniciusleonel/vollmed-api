@@ -1,5 +1,7 @@
-package med.voll.api.domain.medico;
+package med.voll.api.repository;
 
+import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.medico.Medico;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,4 +30,8 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
     Boolean findAtivoById(Long id);
 
     boolean existsByEmail(String email);
+
+    boolean existsById(Long id);
+
+    boolean existsByCrm(String crm);
 }
