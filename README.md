@@ -1,6 +1,31 @@
-# VollMed API
+# VollMed API 
 
 A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, a API permite o cadastro de médicos, pacientes e consultas, fornecendo endpoints públicos para login e cadastro de usuários.
+
+## Como Executar o Projeto
+
+1. Clone este repositório: `git clone https://github.com/viniciusleonel/vollmed-api`
+2. Importe o projeto em sua IDE preferida.
+3. Configure o banco de dados e as credenciais de acesso em `application.properties`.
+4. Execute a aplicação. A API estará disponível em `http://localhost:8080`.
+
+## Iniciar a aplicação / Docker (Opcional)
+
+Se deseja usar o docker para rodar um container da aplicação, abra o terminal na pasta raiz que contém os arquivos docker e digite os seguintes comandos:
+
+Construir a imagem:
+`docker-compose build`
+
+Iniciar os contêineres:
+`docker-compose up`
+
+Feito isso, a aplicação irá iniciar.
+
+## Como Utilizar
+
+- Cadastre-se como um usuário fazendo uma requisição POST para `/usuarios`.
+- Para autenticar-se na API e obter um token JWT, faça uma requisição POST para `/login` enviando as credenciais de usuário.
+- Utilize o token JWT recebido nas requisições aos endpoints privados da API, enviando-o no cabeçalho `Authorization`.
 
 ## Recursos e Funcionalidades
 
@@ -134,18 +159,3 @@ Caso o ID do médico não seja informado, será selecionado um médico que estiv
 - Auth0
 - Hibernate (JPA)
 - Banco de Dados Relacional: MySQL
-
-## Como Executar o Projeto
-
-1. Clone este repositório: `git clone https://github.com/seu-usuario/vollmed-api.git`
-2. Importe o projeto em sua IDE preferida.
-3. Configure o banco de dados e as credenciais de acesso em `application.properties`.
-4. Execute a aplicação. A API estará disponível em `http://localhost:8080`.
-
-## Como Utilizar
-
-- Cadastre-se como um usuário fazendo uma requisição POST para `/usuarios`.
-- Para autenticar-se na API e obter um token JWT, faça uma requisição POST para `/login` enviando as credenciais de usuário.
-- Utilize o token JWT recebido nas requisições aos endpoints privados da API, enviando-o no cabeçalho `Authorization`.
-
-## EM DESENVOLVIMENTO
