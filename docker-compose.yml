@@ -12,9 +12,11 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  api:
-    build: .
-    container_name: api
+  vollmed:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vollmed-api
     ports:
       - "8080:8080"
     environment:
