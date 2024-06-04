@@ -12,5 +12,19 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  api:
+    build: .
+    container_name: api
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=voll_med_api
+      - DB_USERNAME=root
+      - DB_PASSWORD=root123
+    depends_on:
+      - db
+
 volumes:
   mysql_data:
