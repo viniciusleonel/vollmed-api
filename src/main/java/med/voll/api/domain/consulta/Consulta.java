@@ -27,6 +27,7 @@ public class Consulta {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @Column(name = "data", nullable = false)
     private LocalDateTime data;
 
     @Column(name = "consulta_status")

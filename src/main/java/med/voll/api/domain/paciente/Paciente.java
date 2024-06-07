@@ -15,14 +15,23 @@ public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
+
+    @Column(name = "email", unique = true, length = 100, nullable = false)
     private String email;
+
+    @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;
+
+    @Column(name = "cpf", unique = true, length = 11, nullable = false)
     private String cpf;
 
     @Embedded
     private Endereco endereco;
 
+    @Column(name = "ativo", nullable = false)
     private Boolean ativo;
 
     public Paciente (DadosCadastroPaciente dados){
@@ -32,6 +41,7 @@ public class Paciente {
         this.telefone = dados.telefone();
         this.cpf = dados.cpf();
         this.endereco = new Endereco(dados.endereco());
+        this.ativo = true;
     }
 
     public void atualizarInformacoes(DadosAtualizacaoPaciente dados) {

@@ -14,17 +14,27 @@ public class Medico {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome", length = 100, nullable = false)
     private String nome;
+
+    @Column(name = "email", unique = true, length = 100, nullable = false)
     private String email;
+
+    @Column(name = "telefone", length = 20, nullable = false)
     private String telefone;
+
+    @Column(name = "crm", unique = true, length = 50, nullable = false)
     private String crm;
 
+    @Column(name = "especialidade",length = 100, nullable = false)
     @Enumerated(EnumType.STRING)
     private Especialidade especialidade;
 
     @Embedded
     private Endereco endereco;
 
+    @Column(name = "ativo", nullable = false)
     private Boolean ativo;
 
     public Medico (DadosCadastroMedico dados) {

@@ -1,1 +1,0 @@
-alter table consultas add column consulta_status varchar(100);
