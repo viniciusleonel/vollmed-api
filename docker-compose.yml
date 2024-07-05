@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: mysql:8.0
-    container_name: mysql_db
+    container_name: mysql_vollmed
     ports:
       - "3306:3306"
     environment:
@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: vollmed-api
+    image: vollmed-api:mysql
     ports:
       - "8080:8080"
     environment:
