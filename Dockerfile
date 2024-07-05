@@ -1,3 +1,9 @@
+# Use uma imagem base menor para compilar o projeto
+FROM maven:3.8.4-openjdk-17-slim AS build
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
 # Copie o arquivo pom.xml e as dependências do projeto para o diretório de trabalho
 COPY pom.xml .
 
