@@ -159,3 +159,5 @@ Caso o ID do médico não seja informado, será selecionado um médico que estiv
 - Auth0
 - Hibernate (JPA)
 - Banco de Dados Relacional: MySQL
+
+## [Link - Imagens do Projeto](https://github.com/viniciusleonel/vollmed-api/tree/main/assets/images/api-screen-shots)
