@@ -7,7 +7,13 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
 1. Clone este repositório: `git clone https://github.com/viniciusleonel/vollmed-api`
 2. Importe o projeto em sua IDE preferida.
 3. Configure o banco de dados e as credenciais de acesso em `application.properties`.
-4. Execute a aplicação. A API estará disponível em `http://localhost:8080`.
+4. Configure as var de ambiente em .env =  
+   DB_HOST=db
+   DB_PORT=3306 ou 5432
+   DB_NAME=voll_med_api
+   DB_USERNAME=root
+   DB_PASSWORD=root123
+5. Execute a aplicação. A API estará disponível em `http://localhost:8080`.
 
 ## Iniciar a aplicação / Docker (Opcional)
 
