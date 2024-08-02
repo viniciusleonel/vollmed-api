@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_vollmed
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: root123
+      POSTGRES_DB: voll_med_api
+      POSTGRES_USER: root
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
