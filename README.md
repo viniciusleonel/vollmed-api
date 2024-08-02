@@ -2,16 +2,17 @@
 
 A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, a API permite o cadastro de médicos, pacientes e consultas, fornecendo endpoints públicos para login e cadastro de usuários.
 
-## Como Executar o Projeto
+## Executando o Projeto com Docker
 
-1. Clone este repositório: `git clone https://github.com/viniciusleonel/vollmed-api`
-2. Importe o projeto em sua IDE preferida.
-3. Configure o banco de dados e as credenciais de acesso em `application.properties`.
-4. Execute a aplicação. A API estará disponível em `http://localhost:8080`.
+1. Tenha o Docker instalado.
+2. Clone este repositório: `git clone https://github.com/viniciusleonel/vollmed-api`
+3. Importe o projeto em sua IDE preferida.
+4. Configure o banco de dados e as credenciais de acesso em `application.properties`.
+5. Escolha seu banco de dados favorito selecionando uma branch.
+6. Branch "postgres-neontech" utiliza um banco de dados online da neon.tech, sendo necessário inserir o link em application.properties:
+   spring.datasource.url=
 
-## Iniciar a aplicação / Docker (Opcional)
-
-Se deseja usar o docker para rodar um container da aplicação, abra o terminal na pasta raiz que contém os arquivos docker e digite os seguintes comandos:
+7. Abra o terminal na pasta raiz que contém os arquivos docker e digite os seguintes comandos:
 
 Construir a imagem:
 `docker-compose build`
@@ -19,7 +20,7 @@ Construir a imagem:
 Iniciar os contêineres:
 `docker-compose up`
 
-Feito isso, a aplicação irá iniciar.
+Feito isso, a API estará disponível em `http://localhost:8080`.
 
 ## Como Utilizar
 
