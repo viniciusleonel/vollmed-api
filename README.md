@@ -162,10 +162,131 @@ Caso o ID do médico não seja informado, será selecionado um médico que estiv
 - Java
 - Spring Framework
 - Spring Boot
-- Spring Security (JWT)
+- Spring Security
 - Spring Doc
+- Json Web Token (JWT)
 - Auth0
 - Hibernate (JPA)
-- Banco de Dados Relacional: MySQL
+- Banco de Dados Relacional: MySQL/PostgreSQL
+- Swagger
 
-## [Link - Imagens do Projeto](https://github.com/viniciusleonel/vollmed-api/tree/main/assets/images/api-screen-shots)
+## Imagens da API
+
+## Swagger
+![Swagger](./assets/images/api-screen-shots/swagger.png)
+
+## Cadastro de Usuário - Post
+![Cadastro de Usuário](./assets/images/api-screen-shots/usuario/cadastro/cadastrar-usuario.png)
+
+## Cadastro de Usuário - Post (Tratamento de Erro - Campos Inválidos)
+![Cadastro de Usuário Inválido](./assets/images/api-screen-shots/usuario/cadastro/cadastrar-usuario-invalido.png)
+
+## Cadastro de Usuário - Post (Tratamento de Erro - Usuário já Cadastrado)
+![Erro de Cadastro de Usuário](./assets/images/api-screen-shots/usuario/cadastro/cadastrar-usuario-erro.png)
+
+## Login com retorno de um Json Web Token - Post
+![Login de Usuário](./assets/images/api-screen-shots/usuario/login/login.png)
+
+## Login - Post (Tratamento de Erro - Email Inválido)
+![Login Email Inválido](./assets/images/api-screen-shots/usuario/login/login-invalido.png)
+
+## Login - Post (Tratamento de Erro - Credenciais Inválidas)
+![Login Credenciais Inválidas](./assets/images/api-screen-shots/usuario/login/login-erro.png)
+
+## Médico - Post 
+![Cadastro de Médico](./assets/images/api-screen-shots/medico/post/cadastrar-medico.png)
+
+## Médico - Post (Tratamento de Erro - Campos Inválidos)
+![Cadastro de Médico Inválido](./assets/images/api-screen-shots/medico/post/cadastrar-medico-invalido.png)
+
+## Médico - Post (Tratamento de Erro - Médico já Cadastrado)
+![Erro de Cadastro de Médico](./assets/images/api-screen-shots/medico/post/cadastrar-medico-erro.png)
+
+## Médico - Get (Listagem de Médicos com paginação e filtros)
+![Listagem de Médicos](./assets/images/api-screen-shots/medico/get/listar-medico.png)
+
+## Médico - Get (Buscar Médico por ID)
+![Buscar Médico](./assets/images/api-screen-shots/medico/get/buscar-medico.png)
+
+## Médico - Get (Tratamento de Erro - Médico não encontrado)
+![Médico não Encontrado](./assets/images/api-screen-shots/medico/get/buscar-medico-erro.png)
+
+## Médico - Put (Atualizar Médico)
+![Atualizar Médico](./assets/images/api-screen-shots/medico/put/atualizar-medico.png)
+
+## Médico - Put (Tratamento de Erro - Campos Inválidos)
+![Atualizar Médico Inválido](./assets/images/api-screen-shots/medico/put/atualizar-medico-invalido.png)
+
+## Médico - Delete (Deletar Médico)
+![Deletar Médico](./assets/images/api-screen-shots/medico/delete/deletar-medico.png)
+
+## Médico - Delete (Tratamento de Erro - Médico não encontrado)
+![Médico não Encontrado para Deletar](./assets/images/api-screen-shots/medico/delete/deletar-medico-erro.png)
+
+## Paciente - Post 
+![Cadastro de Paciente](./assets/images/api-screen-shots/paciente/post/cadastrar-paciente.png)
+
+## Paciente - Post (Tratamento de Erro - Campos Inválidos)
+![Cadastro de Paciente Inválido](./assets/images/api-screen-shots/paciente/post/cadastrar-paciente-invalido.png)
+
+## Paciente - Post (Tratamento de Erro - Paciente já Cadastrado)
+![Erro de Cadastro de Paciente](./assets/images/api-screen-shots/paciente/post/cadastrar-paciente-erro.png)
+
+## Paciente - Get (Listagem de Pacientes com paginação e filtros)
+![Listagem de Pacientes](./assets/images/api-screen-shots/paciente/get/listar-pacientes.png)
+
+## Paciente - Get (Buscar Paciente por ID)
+![Buscar Paciente](./assets/images/api-screen-shots/paciente/get/buscar-paciente.png)
+
+## Paciente - Get (Tratamento de Erro - Paciente não encontrado)
+![Paciente não Encontrado](./assets/images/api-screen-shots/paciente/get/buscar-paciente-erro.png)
+
+## Paciente - Put (Atualizar Paciente)
+![Atualizar Paciente](./assets/images/api-screen-shots/paciente/put/atualizar-paciente.png)
+
+## Paciente - Put (Tratamento de Erro - Campos Inválidos)
+![Atualizar Paciente Inválido](./assets/images/api-screen-shots/paciente/put/atualizar-paciente-invalido.png)
+
+## Paciente - Delete (Deletar Paciente)
+![Deletar Paciente](./assets/images/api-screen-shots/paciente/delete/deletar-paciente.png)
+
+## Paciente - Delete (Tratamento de Erro - Paciente não encontrado)
+![Paciente não Encontrado para Deletar](./assets/images/api-screen-shots/paciente/delete/deletar-paciente-erro.png)
+
+## Consulta - Post (Agendar Consulta)
+![Agendar Consulta](./assets/images/api-screen-shots/consulta/post/agendar-consulta.png)
+
+## Consulta - Post (Agendar Consulta - Tratamento de Erro - Médico ocupado)
+![Médico Ocupado](./assets/images/api-screen-shots/consulta/post/agendar-consulta-erro.png)
+
+## Consulta - Post (Agendar Consulta - Tratamento de Erro - Paciente só pode ter uma consulta por dia)
+![Erro de Consulta do Paciente](./assets/images/api-screen-shots/consulta/post/agendar-consulta-erro-paciente.png)
+
+## Consulta - Post (Agendar Consulta - Tratamento de Erro - Paciente excluído)
+![Paciente Excluído](./assets/images/api-screen-shots/consulta/post/agendar-consulta-erro-paciente-excluido.png)
+
+## Consulta - Post (Agendar Consulta - Tratamento de Erro - Médico excluído)
+![Médico Excluído](./assets/images/api-screen-shots/consulta/post/agendar-consulta-erro-medico-excluido.png)
+
+## Consulta - Post (Agendar Consulta - Tratamento de Erro - Data inválida)
+![Data Inválida](./assets/images/api-screen-shots/consulta/post/agendar-consulta-data-invalida.png)
+
+## Consulta - Get (Listagem Consultas com paginação e filtros)
+![Listagem de Consultas](./assets/images/api-screen-shots/consulta/get/listar-consultas.png)
+
+## Consulta - Get (Buscar Consulta por ID)
+![Buscar Consulta](./assets/images/api-screen-shots/consulta/get/buscar-consulta.png)
+
+## Consulta - Get (Buscar Consulta - Tratamento de Erro - Consulta não encontrada)
+![Consulta não Encontrada](./assets/images/api-screen-shots/consulta/get/buscar-consulta-erro.png)
+
+## Consulta - Put (Atualizar Consulta)
+![Atualizar Consulta](./assets/images/api-screen-shots/consulta/put/atualizar-consulta.png)
+
+## Consulta - Delete (Cancelar Consulta)
+![Cancelar Consulta](./assets/images/api-screen-shots/consulta/delete/cancelar-consulta.png)
+
+## Código Fonte
+O código fonte completo do projeto está disponível no [GitHub](https://github.com/viniciusleonel/vollmed-api).
+
+**Criado por**: [Vinicius Leonel](https://www.linkedin.com/in/viniciuslps/)
