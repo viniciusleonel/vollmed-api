@@ -2,8 +2,13 @@ version: '3.8'
 
 services:
   db:
+<<<<<<< HEAD
     image: postgres:15
     container_name: postgres_db
+=======
+    image: mysql:8.0
+    container_name: mysql_vollmed
+>>>>>>> 9f17f4430ef21096d2e92bba16e5b1ca95e5c1c0
     ports:
       - "5432:5432"
     environment:
@@ -17,7 +22,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+<<<<<<< HEAD
     image: vollmed-api:postgres
+=======
+    image: vollmed-api:mysql
+>>>>>>> 9f17f4430ef21096d2e92bba16e5b1ca95e5c1c0
     ports:
       - "8080:8080"
     environment:
