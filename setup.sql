@@ -1,1 +1,0 @@
-CREATE DATABASE IF NOT EXISTS voll_med_api;

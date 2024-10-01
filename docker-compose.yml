@@ -1,42 +1,15 @@
 version: '3.8'
 
 services:
-  db:
-<<<<<<< HEAD
-    image: postgres:15
-    container_name: postgres_db
-=======
-    image: mysql:8.0
-    container_name: mysql_vollmed
->>>>>>> 9f17f4430ef21096d2e92bba16e5b1ca95e5c1c0
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: root123
-      POSTGRES_DB: voll_med_api
-      POSTGRES_USER: root
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   vollmed:
+    image: vollmed-api:latest
     build:
       context: .
       dockerfile: Dockerfile
-<<<<<<< HEAD
-    image: vollmed-api:postgres
-=======
-    image: vollmed-api:mysql
->>>>>>> 9f17f4430ef21096d2e92bba16e5b1ca95e5c1c0
     ports:
       - "8080:8080"
     environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=voll_med_api
-      - DB_USERNAME=root
-      - DB_PASSWORD=root123
-    depends_on:
-      - db
-
-
-
+      - PROFILE=dev
+      - JWT_SECRET=
+      - POSTGRES_DB_URL=
+      - POSTGRES_DB_TEST_URL=

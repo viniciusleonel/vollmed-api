@@ -1,32 +1,23 @@
-# Use uma imagem base menor para compilar o projeto
-FROM maven:3.8.4-openjdk-17-slim AS build
+FROM maven:3.9.8-eclipse-temurin-21 AS build
 
-# Defina o diretório de trabalho
-WORKDIR /app
+RUN mkdir /opt/app
 
-# Copie o arquivo pom.xml e as dependências do projeto para o diretório de trabalho
-COPY pom.xml .
+COPY . /opt/app
 
-# Baixe as dependências do Maven
-RUN mvn dependency:go-offline
+WORKDIR /opt/app
 
-# Copie o restante do código do projeto para o diretório de trabalho
-COPY src ./src
+RUN mvn clean package
 
-# Compile o projeto, ignorando os testes
-RUN mvn package -DskipTests
+FROM eclipse-temurin:21-jre-alpine
 
-# Use uma imagem base menor para executar o JAR da aplicação
-FROM openjdk:17-jdk-slim
+RUN mkdir /opt/app
 
-# Define o diretório de trabalho dentro do contêiner
-WORKDIR /voll_med_api
+COPY --from=build  /opt/app/target/vollmed-0.0.1-SNAPSHOT.jar /opt/app/vollmed-0.0.1-SNAPSHOT.jar
 
-# Copie o arquivo JAR da aplicação gerado no estágio de build anterior
-COPY --from=build /app/target/vollmed-0.0.1-SNAPSHOT.jar /voll_med_api/vollmed-0.0.1-SNAPSHOT.jar
+WORKDIR /opt/app
 
-# Exponha a porta 8080 para a aplicação
+ENV PROFILE=prd
+
 EXPOSE 8080
 
-# Comando para iniciar a aplicação quando o contêiner for iniciado
-CMD ["java", "-jar", "vollmed-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILE}", "-jar", "vollmed-0.0.1-SNAPSHOT.jar"]
