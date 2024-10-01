@@ -23,6 +23,8 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
 
    DB_USERNAME=root
 
+   teste
+
    DB_PASSWORD=root123
 >>>>>>> 9f17f4430ef21096d2e92bba16e5b1ca95e5c1c0
 7. Abra o terminal na pasta raiz que contém os arquivos docker e digite os seguintes comandos:
