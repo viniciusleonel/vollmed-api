@@ -2,6 +2,10 @@
 
 A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, a API permite o cadastro de médicos, pacientes e consultas, fornecendo endpoints públicos para login e cadastro de usuários.
 
+Foi implementado um workflow de Integração Contínua (CI) utilizando GitHub Actions para testes e builds em pull requests, e um processo de Entrega Contínua (CD) que realiza o deploy automático da aplicação em produção. A aplicação é containerizada com Docker e implantada na Azure, garantindo atualizações rápidas e escalabilidade.
+
+[Vollmed-Api-Azure](https://vollmed-api-hza2gbbsedfchrer.eastus2-01.azurewebsites.net/swagger-ui/index.html)
+
 ## Executando o Projeto com Docker
 
 1. Tenha o Docker instalado.
@@ -9,24 +13,16 @@ A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, dest
 3. Importe o projeto em sua IDE preferida.
 4. Configure o banco de dados e as credenciais de acesso em `application.properties`.
 5. Escolha seu banco de dados favorito selecionando uma branch.
-<<<<<<< HEAD
 6. Branch "postgres-neontech" utiliza um banco de dados online da neon.tech, sendo necessário inserir o link em application.properties:
    spring.datasource.url=
+6. Configure as variaveis de ambiente no arquivo `docker-compose`>`environment`:  
+   POSTGRES_DB_URL
 
-=======
-6. Configure as variaveis de ambiente em .env:  
-   DB_HOST=db
+   POSTGRES_DB_TEST_UR
 
-   DB_PORT=3306 ou 5432 (MySQL ou PostgreSQL)
+   JWT_SECRET
 
-   DB_NAME=voll_med_api
-
-   DB_USERNAME=root
-
-   teste
-
-   DB_PASSWORD=root123
->>>>>>> 9f17f4430ef21096d2e92bba16e5b1ca95e5c1c0
+    PROFILE
 7. Abra o terminal na pasta raiz que contém os arquivos docker e digite os seguintes comandos:
 
 Construir a imagem:
