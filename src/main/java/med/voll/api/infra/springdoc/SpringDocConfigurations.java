@@ -30,9 +30,11 @@ public class SpringDocConfigurations {
                                                 "Foi implementado um workflow de Integração Contínua (CI) utilizando GitHub Actions para testes e builds em pull requests, e um processo de Entrega Contínua (CD) que realiza o deploy automático da aplicação em produção. A aplicação é containerizada com Docker e implantada na Azure, garantindo atualizações rápidas e escalabilidade.\n")
                                         .contact(new Contact()
                                                 .name("Vinicius Leonel")
-                                                .email("viniciuslps.cms@gmail.com"))
+                                                .email("viniciuslps.cms@gmail.com")
+                                                .url("https://www.linkedin.com/in/viniciuslps/")
+                                        )
                                         .license(new License()
-                                                .name("Apache 2.0")
-                                                ));
+                                                .name("GitHub")
+                                                .url("https://github.com/viniciusleonel/vollmed-api")));
     }
 }
