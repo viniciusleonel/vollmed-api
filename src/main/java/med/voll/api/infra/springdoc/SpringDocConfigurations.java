@@ -24,9 +24,9 @@ public class SpringDocConfigurations {
                                         .bearerFormat("JWT")))
                                 .addSecurityItem(new SecurityRequirement().addList("bearer-key"))
                                 .info(new Info()
-                                        .title("Voll.med API")
+                                        .title("Vollmed API")
                                         .description("""
-                                                A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, a API permite o cadastro de médicos, pacientes e consultas, fornecendo endpoints públicos para login e cadastro de usuários.\
+                                                A Vollmed API é uma aplicação desenvolvida em Java com Spring Framework, destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, a API permite o cadastro de médicos, pacientes e consultas, fornecendo endpoints públicos para login e cadastro de usuários. \n
                                                 
                                                 Foi implementado um workflow de Integração Contínua (CI) utilizando GitHub Actions para testes e builds em pull requests, e um processo de Entrega Contínua (CD) que realiza o deploy automático da aplicação em produção. A aplicação é containerizada com Docker e implantada na Azure, garantindo atualizações rápidas e escalabilidade.
                                                 """)
