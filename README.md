@@ -1,35 +1,45 @@
 # VollMed API 
 
-A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, a API permite o cadastro de médicos, pacientes e consultas, fornecendo endpoints públicos para login e cadastro de usuários.
+A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, 
+destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, 
+a API permite o cadastro de médicos, pacientes e consultas, fornecendo 
+endpoints públicos para login e cadastro de usuários.
 
-Foi implementado um workflow de Integração Contínua (CI) utilizando GitHub Actions para testes e builds em pull requests, e um processo de Entrega Contínua (CD) que realiza o deploy automático da aplicação em produção. A aplicação é containerizada com Docker e implantada na Azure, garantindo atualizações rápidas e escalabilidade.
+Foi implementado um workflow de Integração Contínua (CI) utilizando GitHub Actions 
+para testes e builds em pull requests, e um processo de Entrega Contínua (CD) que 
+realiza o deploy automático da aplicação em produção. A aplicação é containerizada 
+com Docker e implantada na Azure, garantindo atualizações rápidas e escalabilidade.
 
 [Vollmed-Api-Azure](https://vollmed-api-hza2gbbsedfchrer.eastus2-01.azurewebsites.net/swagger-ui/index.html)
 
+### Requisitos:
+- Ter o Docker instalado.
+- Ter o Java instalado.
+- Clonar este repositório: `git clone https://github.com/viniciusleonel/vollmed-api`
+
+## Configuração
+
+1. Configure as variáveis de ambiente no seu arquivo `.env` ou no seu ambiente:
+- POSTGRES_DB_URL
+- POSTGRES_DB_TEST_URL
+- JWT_SECRET
+- PROFILE
+
+2. Agora execute a classe `VollMedApplication` e a API estará pronta para uso.
+
 ## Executando o Projeto com Docker
 
-1. Tenha o Docker instalado.
-2. Clone este repositório: `git clone https://github.com/viniciusleonel/vollmed-api`
-3. Importe o projeto em sua IDE preferida.
-4. Configure o banco de dados e as credenciais de acesso em `application.properties`.
-5. Escolha seu banco de dados favorito selecionando uma branch.
-6. Branch "postgres-neontech" utiliza um banco de dados online da neon.tech, sendo necessário inserir o link em application.properties:
-   spring.datasource.url=
-6. Configure as variaveis de ambiente no arquivo `docker-compose`>`environment`:  
-   POSTGRES_DB_URL
+1. Configure as mesmas variáveis de ambiente em `docker-compose`>`environment`
 
-   POSTGRES_DB_TEST_UR
+2. Abra o terminal na pasta raiz que contém os arquivos docker e digite os seguintes comandos:
 
-   JWT_SECRET
+   - Construir a imagem:
+     `docker-compose build`
 
-    PROFILE
-7. Abra o terminal na pasta raiz que contém os arquivos docker e digite os seguintes comandos:
+   - Iniciar os contêineres:
+     `docker-compose up -d`
 
-Construir a imagem:
-`docker-compose build`
-
-Iniciar os contêineres:
-`docker-compose up`
+    Isso irá iniciar o contêiner em segundo plano.
 
 Feito isso, a API estará disponível em `http://localhost:8080`.
 
@@ -164,15 +174,19 @@ Caso o ID do médico não seja informado, será selecionado um médico que estiv
 ## Tecnologias Utilizadas
 
 - Java
-- Spring Framework
 - Spring Boot
 - Spring Security
 - Spring Doc
 - Json Web Token (JWT)
 - Auth0
 - Hibernate (JPA)
-- Banco de Dados Relacional: MySQL/PostgreSQL
 - Swagger
+- PostgreSQL
+- Docker & DockerHub
+- GitHub Actions
+- Microsoft Azure
+
+## **Criado por**: [Vinicius Leonel](https://www.linkedin.com/in/viniciuslps/)
 
 ## Imagens da API
 
@@ -289,8 +303,3 @@ Caso o ID do médico não seja informado, será selecionado um médico que estiv
 
 ## Consulta - Delete (Cancelar Consulta)
 ![Cancelar Consulta](./assets/images/api-screen-shots/consulta/delete/cancelar-consulta.png)
-
-## Código Fonte
-O código fonte completo do projeto está disponível no [GitHub](https://github.com/viniciusleonel/vollmed-api).
-
-**Criado por**: [Vinicius Leonel](https://www.linkedin.com/in/viniciuslps/)
