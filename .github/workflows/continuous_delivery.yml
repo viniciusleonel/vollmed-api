@@ -28,6 +28,8 @@ jobs:
           push: true
           tags: index.docker.io/${{ secrets.DOCKERHUB_USERNAME }}/vollmed-api:${{ github.sha }}
           file: ./Dockerfile
+        env:
+          POSTGRES_DB_TEST_URL: ${{ secrets.POSTGRES_DB_TEST_URL }}
 
   deploy:
     runs-on: ubuntu-latest

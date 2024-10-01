@@ -6,6 +6,8 @@ COPY . /opt/app
 
 WORKDIR /opt/app
 
+ENV POSTGRES_DB_TEST_URL=${POSTGRES_DB_TEST_URL}
+
 RUN mvn clean package
 
 FROM eclipse-temurin:21-jre-alpine
