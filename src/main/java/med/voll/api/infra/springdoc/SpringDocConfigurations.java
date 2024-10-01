@@ -25,12 +25,14 @@ public class SpringDocConfigurations {
                                 .addSecurityItem(new SecurityRequirement().addList("bearer-key"))
                                 .info(new Info()
                                         .title("Voll.med API")
-                                        .description("API Rest da aplicação Voll.med, contendo as funcionalidades de CRUD de médicos e de pacientes, além de agendamento e cancelamento de consultas")
+                                        .description("A VollMed API é uma aplicação desenvolvida em Java com Spring Framework, destinada à gestão de uma clínica médica. Com recursos de autenticação JWT, a API permite o cadastro de médicos, pacientes e consultas, fornecendo endpoints públicos para login e cadastro de usuários.\n" +
+                                                "\n" +
+                                                "Foi implementado um workflow de Integração Contínua (CI) utilizando GitHub Actions para testes e builds em pull requests, e um processo de Entrega Contínua (CD) que realiza o deploy automático da aplicação em produção. A aplicação é containerizada com Docker e implantada na Azure, garantindo atualizações rápidas e escalabilidade.\n")
                                         .contact(new Contact()
-                                                .name("Time Backend")
+                                                .name("Vinicius Leonel")
                                                 .email("viniciuslps.cms@gmail.com"))
                                         .license(new License()
                                                 .name("Apache 2.0")
-                                                .url("http://voll.med/api/licenca")));
+                                                ));
     }
 }
