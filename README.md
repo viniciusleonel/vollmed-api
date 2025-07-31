@@ -10,7 +10,8 @@ para testes e builds em pull requests, e um processo de Entrega Contínua (CD) q
 realiza o deploy automático da aplicação em produção. A aplicação é containerizada 
 com Docker e implantada na Azure, garantindo atualizações rápidas e escalabilidade.
 
-[Vollmed API Azure](https://vollmed-api-hza2gbbsedfchrer.eastus2-01.azurewebsites.net/swagger-ui/index.html)
+<!--
+[Vollmed API Azure](https://vollmed-api-hza2gbbsedfchrer.eastus2-01.azurewebsites.net/swagger-ui/index.html)-->
 
 ---
 
